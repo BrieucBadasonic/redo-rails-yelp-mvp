@@ -1,0 +1,31 @@
+<div class="container">
+  <h1><%= @restaurant.name %> - <%= @restaurant.category %> restaurant</h1>
+  <hr>
+  <p>Adress: <%= @restaurant.address %> </p>
+  <p>Phone number: <%= @restaurant.phone_number %></p>
+  <hr>
+  <ul>
+    <% @restaurant.reviews.each do |review| %>
+    <li>
+      <% count = 0 %>
+      <% 5.times do %>
+        <% if review.rating > count %>
+          <i class="fas fa-star"></i>
+        <% else %>
+          <i class="far fa-star"></i>
+        <% end %>
+        <% count += 1 %>
+      <% end %>
+      - <%= review.content %>
+    </li>
+    <% end %>
+  </ul>
+  <hr>
+  <h1>Enter you review</h1>
+  <%= simple_form_for([@restaurant, @review]) do |f| %>
+    <%= f.input :rating, collection: 0..5 %>
+    <%= f.input :content %>
+    <%= f.submit class: 'btn btn-primary mt-2' %>
+  <% end %>
+
+</div>
